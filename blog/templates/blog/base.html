@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load simple_tag %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href=" {% static 'blog/css/bulma.css' %}">
+    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+    {% block head %}
+    <title>轻编程的博客首页</title>
+    {% endblock head %}
+</head>
+<body>
+<!-- 博客导航栏 -->
+  <header class="container menu-header">
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <h1 class="navbar-item is-size-3 has-text-black">轻编程</h1>
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+      
+        <div id="navbarBasicExample" class="navbar-menu">
+          {% get_category_list as category_list %}
+    {% if category_list %}
+          <div class="navbar-end">
+              <a class="navbar-item active has-text-black has-text-weight-bold" href="{% url 'blog:index' %}">
+                  首页
+              </a>
+        {% for category in category_list %}
+            <a class="navbar-item has-text-black" href="{% url 'blog:category' category.slug %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}    
+           
+          </div>
+    {% else %}
+        <p>还没有添加任何分类</p>
+    {% endif %} 
+        </div>
+    </nav>
+  </header>
+
+<!-- 博客导航栏  end-->
+
+
+<!-- 博客section模块 -->
+<div class="container">
+  <section class="section has-background-light">
+    <div class="columns">
+
+      <!-- 博客左边内容模块 -->
+      <div class="column is-8">
+        {% block content %}
+        {% endblock content %}      
+      </div>
+      <!-- 博客左边内容模块 -->
+
+      <!-- 博客右侧列表模块 -->
+      <div class="column is-4">  
+          {% block aside %}
+
+        <!-- 文章归档 -->
+        {% get_month_list as archive_list %}
+        <div class="box is-shadowless is-radiusless">
+          <h1 class="title is-size-5">文章归档</h1>
+          {% if archive_list %}
+          {% for archive in archive_list %}
+          <article class="media" >
+              <div class="media-content" >
+                <div class="content">
+                
+                <a href="{% url 'blog:dates' archive.year archive.month %}">{{ archive|date:"Y年m月" }}</a>  
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+      {% else %}
+      <p>还没有任何评论！</p>
+      {% endif %}
+        </div>
+        <!-- 文章归档 end -->
+
+        
+        <!-- 侧边栏评论 -->
+        {% get_comment_list as comment_list %}
+        <div class="box is-shadowless is-radiusless">
+          <h1 class="title is-size-5" id="comment">最新评论</h1>
+          {% if comment_list %}
+              {% for comment in comment_list %}
+              <article class="media" style="padding-left: 1rem;">
+                  <div class="media-content" >
+                    <div class="content">
+                      <p>
+                        <span class="is-size-7 has-text-grey-light">
+                          <a href="">{{ comment.author }}</a> 于 {{ comment.add_date|date }}发表评论：</span><br>
+                         <a href="{% url 'blog:article' comment.article.id %}">{{ comment.content }}</a>
+                      </p>
+                      
+                    </div>
+                  </div>
+                </article>
+              {% endfor %}
+          {% else %}
+          <p>还没有任何评论！</p>
+          {% endif %}
+        </div>
+         <!-- 侧边栏评论 end-->
+   <!-- 文章标签 -->
+   {% get_tags_list as tags %}
+   <div class="box is-shadowless is-radiusless">
+     <h1 class="is-size-5 has-text-weight-bold">文章归档</h1>
+     {% if tags %}
+     <div class="tags"></div>
+     {% for tag in tags %}
+      <span class="tag">
+        {{ tag }}
+      </span>
+     {% endfor %}
+    </div>
+ {% else %}
+ <p>还没有任何评论！</p>
+ {% endif %}
+   </div>
+   <!-- 文章标签 end -->
+
+          {% endblock aside %} 
+      </div>
+      <!-- 博客右侧列表模块 end-->
+
+
+    </div>
+  </section>
+
+  <!-- 博客底部通用 footer -->
+  <footer class=" footer has-background-primary  has-text-centered">
+    <p class="has-text-black">这是博客底部 footer</p> 
+  </footer>
+   <!-- 博客底部通用 footer end-->
+</div>
+<!-- 博客content模块 end -->
+</body>
+</html>
