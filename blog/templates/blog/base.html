@@ -118,9 +118,11 @@
      {% if tags %}
      <div class="tags"></div>
      {% for tag in tags %}
+     <a href="{% url 'blog:tags' tag.id %}">
       <span class="tag">
         {{ tag }}
       </span>
+    </a>
      {% endfor %}
     </div>
  {% else %}

@@ -27,8 +27,6 @@ def article(request, article_id):
     # 获取上下篇
     per_article = Article.objects.filter(add_date__lt=article.add_date).last()
     next_article = Article.objects.filter(add_date__gt=article.add_date).first()
-
-    print(per_article)
    
     # 判断是否为POST请求，如果不是
     if request.method != "POST":
@@ -58,5 +56,6 @@ def blog_get_dates(request, year, month):
 
 
 def blog_get_tags(request, tag_id):
+    """ 标签列表页 """
     tag = get_object_or_404(Tags, id=tag_id)
     return render(request, 'blog/tags.html', locals())
