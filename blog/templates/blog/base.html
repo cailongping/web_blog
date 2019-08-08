@@ -111,12 +111,12 @@
           {% endif %}
         </div>
          <!-- 侧边栏评论 end-->
+
    <!-- 文章标签 -->
    {% get_tags_list as tags %}
    <div class="box is-shadowless is-radiusless">
-     <h1 class="is-size-5 has-text-weight-bold">文章归档</h1>
+     <h1 class="is-size-5 title">文章归档</h1>
      {% if tags %}
-     <div class="tags"></div>
      {% for tag in tags %}
      <a href="{% url 'blog:tags' tag.id %}">
       <span class="tag">
@@ -124,7 +124,7 @@
       </span>
     </a>
      {% endfor %}
-    </div>
+    
  {% else %}
  <p>还没有任何评论！</p>
  {% endif %}

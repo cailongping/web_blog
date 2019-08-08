@@ -20,5 +20,5 @@ def get_month_list():     # 按月份进行匹配归档
     return Article.objects.dates('add_date', 'month', order='DESC')
 
 @register.simple_tag
-def get_tags_list():
+def get_tags_list():     # 侧边栏显示所有标签
     return Tags.objects.all()

@@ -44,7 +44,7 @@ def article(request, article_id):
             new_article.article = article
             # 保存
             new_article.save()
-            # 成功之后返回数据
+            # 成功之后跳转回当前页
             return HttpResponseRedirect(reverse('blog:article', args=[article_id]))
     return render(request, 'blog/article.html', locals())
 

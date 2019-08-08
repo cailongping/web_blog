@@ -13,3 +13,12 @@ html{
 .menu-header .navitem{
     line-height: 5em;
 }
+    /* login */
+.login{
+    display: flex;
+    min-height: 100vh;
+    margin: 0;
+}
+.login .login-box{
+    margin:auto;
+}
