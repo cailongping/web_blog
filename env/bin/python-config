@@ -1,4 +1,4 @@
-#!/home/qingbc/django/env/bin/python
+#!/media/xingfu/文档/qingbc/env/bin/python
 
 import sys
 import getopt

@@ -9,6 +9,8 @@ migrations/
 
 # Distribution / packaging
 .Python
+env/
+env-d/
 winenv/
 build/
 develop-eggs/

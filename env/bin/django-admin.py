@@ -1,4 +1,4 @@
-#!/home/qingbc/django/env/bin/python3.7
+#!/media/xingfu/文档/qingbc/env/bin/python3
 from django.core import management
 
 if __name__ == "__main__":
