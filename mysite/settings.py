@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',  # 管理静态文件的框架。
     # 添加应用
     'blog.apps.BlogConfig',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [

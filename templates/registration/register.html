@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load i18n static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href=" {% static 'blog/css/bulma.css' %}">
+    <link rel="stylesheet" href=" {% static 'blog/css/style.css' %}">
+    <title>登录页面</title>
+</head>
+<body>
+
+   
+<div class="login">
+    <div class="login-box column is-half-desktop is-three-quarters-touch">
+        <!-- 判断用户是否登录，如果已经登录给出提示 -->
+        {% if user.is_authenticated %}
+        <p class="box has-background-warning">
+            {% blocktrans trimmed %}
+                You are authenticated as {{ username }}, but are not authorized to
+                access this page. Would you like to login to a different account?
+            {% endblocktrans %}
+         </p>
+        {% endif %}
+    <div class="box has-background-white" > 
+        <div class="content">
+            <h1 class=" is-uppercase has-text-centered has-text-weight-bold" style="padding: 0.5em 0">
+                轻编程
+            <br><span class="tag">注册</span>
+            </h1>
+            <hr class="dropdown-divider">
+
+        {% if form.errors and not form.non_field_errors %}
+            <p class="errornote has-text-danger">
+                {% if form.errors.items|length == 1 %}
+                    {% trans "Please correct the error below." %}
+                {% else %}
+                    {% trans "Please correct the errors below." %}
+                {% endif %}
+            </p>
+        {% endif %}  
+        </div>
+        
+    
+        
+    <form action="" method="post" id="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        {{ user_info_form.as_p }} 
+        <input type="hidden" name="next" value="{% url 'login' %}">
+
+        <!-- 错误提示 -->
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+              <p class="has-text-grey-light">
+                  {{ error }}
+              </p>
+            {% endfor %}
+        {% endif %}
+        
+        <!-- 判断是否拥有找回密码连接，有则给出 -->
+        {% url 'password_reset' as password_reset_url %}
+        {% if password_reset_url %}
+        <div class="password-reset-link">
+            <a class=" is-size-7" href="{{ password_reset_url }}">{% trans 'Forgotten your password or username?' %}</a>
+        </div>
+        {% endif %}
+
+        <!-- 登录按钮 -->
+        <div class="submit-row">
+            <label>&nbsp;</label><input class="button is-primary is-pulled-right" type="submit" value="{% trans 'Register' %}">
+        </div>
+    </form> 
+        </div> 
+    </div>
+</div>
+
+</body>
+</html>

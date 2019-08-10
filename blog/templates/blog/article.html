@@ -110,7 +110,7 @@
       <div class=" is-clearfix"></div>
     </form>
   {% else %}
-    <p>你还没有登录，请 <a href="/admin">登录</a> 后再评论！还没有账号，请前往<a href="/admin"> 注册 </a>！</p>
+    <p>你还没有登录，请 <a href="{% url 'login' %}">登录</a> 后再评论！还没有账号，请前往<a href="{% url 'account:register' %}"> 注册 </a>！</p>
   {% endif %}
 </div>
 <!-- 留言框 end -->
