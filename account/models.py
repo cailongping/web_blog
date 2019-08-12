@@ -7,7 +7,7 @@ class UserInfo(models.Model):
     """Model definition for UserInfo."""
 
     author = models.OneToOneField(User, on_delete=models.CASCADE, unique=True, verbose_name='用户')
-    phone = models.IntegerField('手机号', max_length=11)
+    phone = models.IntegerField('手机号', unique=True)
     add_date = models.DateField('注册日期', auto_now_add=True)
 
     class Meta:

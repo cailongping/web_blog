@@ -4,8 +4,11 @@ from django.shortcuts import render, redirect, HttpResponse
 from .forms import RegisterForm, UserInfoForm
 
 def register(request):
+    # 注册表单
     if request.method != "POST":
+        # Django自带的User模型的表单
         form = RegisterForm()
+        # 自己通过一对一创建的用户表单
         user_info_form = UserInfoForm() 
     else:
         form = RegisterForm(data=request.POST)
@@ -20,3 +23,8 @@ def register(request):
             return redirect('login')
 
     return render(request, 'registration/register.html', {'form':form, 'user_info_form':user_info_form})
+
+
+def person_center(request):
+    # 个人中心
+    return render(request, 'account/person_center.html')

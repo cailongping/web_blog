@@ -46,7 +46,7 @@
           <div class="navbar-item">
             {% if user.is_authenticated %}
             <div class="buttons">
-                <a href="http://" class="button is-info">个人中心</a>
+                <a href="{% url 'account:person' %}" class="button is-info">个人中心</a>
                 <a href="{% url 'logout' %}" class="button is-primary">退出</a>
             </div>
             {% else %}
