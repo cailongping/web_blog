@@ -18,4 +18,4 @@ class UserInfo(models.Model):
 
     def __str__(self):
         """Unicode representation of UserInfo."""
-        return 'user>> {}'.format(self.author.username)
+        return self.author.username

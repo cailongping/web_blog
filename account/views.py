@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 # Create your views here.
-from .forms import RegisterForm, UserInfoForm
+from .models import UserInfo
+from .forms import RegisterForm, UserInfoForm   # 引入forms.py中定义好的表单类
 
 def register(request):
-    # 注册表单
     if request.method != "POST":
         # Django自带的User模型的表单
         form = RegisterForm()
@@ -24,7 +25,9 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form':form, 'user_info_form':user_info_form})
 
-
+@login_required(login_url='login')
 def person_center(request):
     # 个人中心
+    user = User.objects.get(username=request.user.username)
+    # user_info = UserInfo.objects.get(author=request.user.username)
     return render(request, 'account/person_center.html')

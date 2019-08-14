@@ -22,7 +22,6 @@ class RegisterForm(forms.ModelForm):
         model = User
         fields = ('username','email')
 
-
     def clean_password2(self):
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
