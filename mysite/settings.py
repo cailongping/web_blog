@@ -142,3 +142,14 @@ CACHES = {
         'LOCATION': 'my_cache_table',
     }
 }
+
+
+EMAIL_HOST = 'smtp.163.com' 
+EMAIL_HOST_USER = "15336112587@163.com" 
+EMAIL_HOST_PASSWORD = "sxggz0306" 
+EMAIL_PORT = 25
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "15336112587@163.com"
+
+# 用于调试
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

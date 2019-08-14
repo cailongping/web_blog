@@ -25,9 +25,9 @@ def register(request):
 
     return render(request, 'registration/register.html', {'form':form, 'user_info_form':user_info_form})
 
+
 @login_required(login_url='login')
 def person_center(request):
     # 个人中心
     user = User.objects.get(username=request.user.username)
-    # user_info = UserInfo.objects.get(author=request.user.username)
     return render(request, 'account/person_center.html')
