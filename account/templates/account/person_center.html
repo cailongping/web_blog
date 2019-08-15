@@ -47,7 +47,7 @@
                         </span>
                     </button>
                     </div>
-                    <div class="dropdown-menu" id="dropdown-menu2" role="menu" style="min-width:9rem;">
+                    <div class="dropdown-menu" id="dropdown-menu2" role="menu" >
                     <div class="dropdown-content is-shadowless">
                         <div class="dropdown-item">
                         <a class=" has-text-grey-dark" href="">
@@ -95,7 +95,7 @@
                             <ul class="content menu-list">
                                 <li><a href="{% url 'account:person' %}">个人信息</a></li>
                                 <li><a href="{% url 'password_change' %}">修改密码</a></li>
-                                <li><a href="{% url 'password_reset' %}">找回密码</a></li>
+                                <!-- <li><a href="{% url 'password_reset' %}">找回密码</a></li> -->
                             </ul>
                         </div>
                            
@@ -144,7 +144,7 @@
                             </div>
                             <div class="level-right">
                                 <div class="level-item">
-                                    <a class=" button is-light" href="">修改信息</a>
+                                    <a class=" button is-light" href="{% url 'account:edit_phone' %}">修改信息</a>
                                 </div>
                             </div>
                         </div>

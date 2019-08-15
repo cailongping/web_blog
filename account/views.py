@@ -14,7 +14,7 @@ def register(request):
     else:
         form = RegisterForm(data=request.POST)
         user_info_form = UserInfoForm(data=request.POST)
-        if form.is_valid():
+        if form.is_valid() and user_info_form.is_valid():
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data.get('password2'))
             new_user.save()
@@ -31,3 +31,23 @@ def person_center(request):
     # 个人中心
     user = User.objects.get(username=request.user.username)
     return render(request, 'account/person_center.html')
+
+
+@login_required(login_url='login')
+def edit_phone(request):
+    # 修改手机号
+    phone = request.user.userinfo.phone
+    user_info = UserInfo.objects.get(author=request.user)
+
+    if request.method != "POST":
+        user_info_form = UserInfoForm(initial={'phone': phone})
+    else:
+        user_info_form = UserInfoForm(instance=user_info, data=request.POST)
+        if user_info_form.is_valid():
+            user_info_db = user_info_form.cleaned_data
+            user_info.author = request.user
+            user_info.phone = user_info_db['phone']
+            user_info.save()
+            return redirect('account:person')
+       
+    return render(request, 'account/edit_phone.html', locals())

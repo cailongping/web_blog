@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserInfo
+import re
 
 class RegisterForm(forms.ModelForm):
     """Form definition for Register."""
@@ -42,3 +43,11 @@ class UserInfoForm(forms.ModelForm):
 
         model = UserInfo
         fields = ('phone',)
+
+    def clean_phone(self):
+        # 对手机号进行验证
+        phone = self.cleaned_data.get('phone')
+        regex = re.compile(r'^1[^012]\d{9}$')
+        if regex.search(phone) == None:
+            raise forms.ValidationError('请输入正确的手机号码！')
+        return phone

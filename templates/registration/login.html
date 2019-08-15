@@ -57,7 +57,7 @@
             {{ form.password.errors }}
         </div>
           
-        <input type="hidden" name="next" value="{% url 'blog:index' %}">
+        <input type="hidden" name="next" value="{% url 'account:person' %}">
 
         <!-- 错误提示 -->
         {% if form.non_field_errors %}

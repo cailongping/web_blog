@@ -6,4 +6,5 @@ app_name = 'account'
 urlpatterns = [
     path('register/', views.register, name="register"),  # 注册
     path('person/', views.person_center, name="person"), # 个人中心
+    path('edit_phone/', views.edit_phone, name="edit_phone"),
 ]

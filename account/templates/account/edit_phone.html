@@ -1,0 +1,26 @@
+{% extends 'account/person_center.html' %}
+{% load i18n static %}
+
+{% block head %}
+    <title>修改手机号</title>
+{% endblock head %}
+
+{% block person %}
+<div class="tabs">
+    <ul>
+        <li class="is-active"><a>修改手机号</a></li>
+    </ul>
+</div>
+<div class="content">
+    <p>用户名：{{ user.username }}</p>
+    <form method="post">{% csrf_token %}
+        <fieldset class="module aligned">
+            <div class="field">
+                {{ user_info_form.as_p }}
+            </div>
+            <input class=" button is-primary" type="submit" value="{% trans '提交修改' %}">
+        </fieldset>
+    </form>
+</div>
+  
+{% endblock person %}

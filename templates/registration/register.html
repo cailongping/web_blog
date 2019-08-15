@@ -48,7 +48,7 @@
     <form action="" method="post" id="login-form">
         {% csrf_token %}
         {{ form.as_p }}
-        {{ user_info_form.as_p }} 
+        {{ user_info_form.as_p }}
         <input type="hidden" name="next" value="{% url 'login' %}">
 
         <!-- 错误提示 -->

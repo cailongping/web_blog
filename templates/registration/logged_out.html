@@ -1,12 +1,14 @@
-{% extends "admin/base_site.html" %}
-{% load i18n %}
+{% extends 'account/person_center.html' %}
+{% load i18n static %}
 
-{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'blog:index' %}">{% trans 'Home' %}</a></div>{% endblock %}
+{% block head %}
+    <title>退出登录页面</title>
+{% endblock head %}
+{% block user %}{% endblock user %}
 
-{% block content %}
-
+{% block section %}
 <p>{% trans "Thanks for spending some quality time with the Web site today." %}</p>
 
 <p><a href="{% url 'login' %}">{% trans 'Log in again' %}</a></p>
 
-{% endblock %}
+{% endblock section %}
