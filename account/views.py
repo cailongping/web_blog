@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 # Create your views here.
 from .models import UserInfo
-from .forms import RegisterForm, UserInfoForm, UserInfoRegisterForm   # 引入forms.py中定义好的表单类
+from .forms import RegisterForm, UserInfoForm, UserInfoRegisterForm, UserForm   # 引入forms.py中定义好的表单类
 
 def register(request):
     if request.method != "POST":
@@ -35,15 +35,19 @@ def person_center(request):
 
 @login_required(login_url='login')
 def edit_phone(request):
-    # 修改手机号
-    user_info = UserInfo.objects.get(author=request.user)
-
+    # 修改用户信息
+    user = User.objects.get(username=request.user)
+    user_info = user.userinfo
     if request.method != "POST":
+        form = UserForm(instance=user)
         user_info_form = UserInfoForm(instance=user_info)
     else:
         user_info_form = UserInfoForm(request.POST, request.FILES, instance=user_info )
-        if user_info_form.is_valid():
+        form = UserForm(request.POST, instance=user)
+        if user_info_form.is_valid() and form.is_valid():
             user_info.save()
-            return redirect('account:person')
-       
+            user.save()
+            return redirect('account:person')     
     return render(request, 'account/edit_phone.html', locals())
+
+

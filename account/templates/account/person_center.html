@@ -127,29 +127,78 @@
                         <div class="tabs">
                             <ul>
                               <li class="is-active"><a>账号信息</a></li>
-                               <!-- <li><a>功能设置</a></li>
-                               <li><a>黑名单</a></li>
-                               <li><a>安全中心</a></li> -->
                             </ul>
                         </div>
-                    <div class="content">
-                        <div class="level">
-                            <div class="level-left">
-                                <div class="level-item">
-                                   <ol>
-                                       <li>用户名：{{ user.username }}</li>
-                                       <li>手&nbsp;&nbsp;&nbsp; 机：{{ user.userinfo.phone }}</li>
-                                   </ol>
-                                </div>
-                            </div>
-                            <div class="level-right">
-                                <div class="level-item">
-                                    <a class=" button is-light" href="{% url 'account:edit_phone' %}">修改信息</a>
-                                </div>
+
+
+                    <div class="columns is-mobile" style="border-bottom: #ededed solid 1px; padding-bottom: 1rem">
+                        <div class="column is-narrow">
+                            <figure class="image is-96x96">
+                                <img class="is-rounded" src="{{ MEDIA_URL }}{{ user.userinfo.user_img }}">
+                            </figure>
+                        </div>
+                        <div class="column is-narrow">
+                            <div style="padding-top: 1.5rem;">
+                                <h1 class="title is-size-4">{{ user.username }}</h1>
+                                <p class="subtitle is-size-6">{{ user.userinfo.user_desc }}</p>
                             </div>
                         </div>
-                       
+                        <div class="column is-narrow-mobile">
+                            <a class=" button is-light is-pulled-right" href="{% url 'account:edit_phone' %}" style="margin-top: 1.8rem">修改信息</a>
+                        </div>
+                    </div>    
+                    
+                    <div class="columns" style="padding:1rem 0; ">
+                        <div class="column is-2">
+                            <p>个人信息</p>  
+                        </div>
+                        <div class="column">
+                            <div class="columns is-mobile" style="border-bottom: #ededed solid 1px">
+                                <div class="column is-2">
+                                   <span class=" has-text-grey-light">用户类型</span> 
+                                </div>
+                                    <div class="column is-narrow">
+                                        <span class=" has-text-black-ter">个人</span>
+                                    </div>
+                                <div class="column has-text-right">
+                                    <a href="">更改类型</a>
+                                </div>
+                                        
+                            </div>
+                            <div class="columns is-mobile" style="border-bottom: #ededed solid 1px">
+                                <div class="column is-2">
+                                   <span class=" has-text-grey-light">手机</span> 
+                                </div>
+                                <div class="column is-narrow">
+                                    <span class=" has-text-black-ter">{{ user.userinfo.phone }}</span>
+                                </div>
+                                <!-- <div class="column"></div> -->
+                                
+                            </div>
+                            <div class="columns is-mobile" style="border-bottom: #ededed solid 1px">
+                                <div class="column is-2">
+                                   <span class=" has-text-grey-light">邮箱</span> 
+                                </div>
+                                <div class="column is-narrow">
+                                    <span class=" has-text-black-ter">{{ user.email }}</span>
+                                </div>
+                                <!-- <div class="column"></div> -->
+                                    
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="columns" style="padding:1rem 0; ">
+                        <div class="column is-2">
+                            <p>个人简介</p>  
+                        </div>
+                        <div class="column">
+                            <div class="content">
+                                {{ user.userinfo.user_content }}
+                            </div>
+                        </div>
+                    </div>
+                   
                     {% endblock person %}
                     </div>
                 </div>

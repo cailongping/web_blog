@@ -28,7 +28,6 @@ class RegisterForm(forms.ModelForm):
         password2 = self.cleaned_data.get('password2')
         if password != password2:
             raise forms.ValidationError("您输入的两次密码不一致！")
-    
         return password2
 
 
@@ -56,11 +55,14 @@ class UserInfoRegisterForm(forms.ModelForm):
 
 class UserInfoForm(forms.ModelForm):
     """Form definition for UserInfo."""
-    phone = forms.CharField(label="手机号", widget=forms.TextInput(
-        attrs={'class':'input is-radiusless is-shadowless'}
+    user_desc = forms.CharField(label="个性签名", widget=forms.TextInput(
+        attrs={'class':'input'}
     ))
-    user_img = forms.ImageField(label="用户头像", widget=forms.ClearableFileInput(
-        attrs={'class':'file-input'}
+    user_content = forms.CharField(label="个人介绍", widget=forms.Textarea(
+        attrs={'class':'textarea'}
+    ))
+    phone = forms.CharField(label="手机号", widget=forms.TextInput(
+        attrs={'class':'input'}
     ))
 
     class Meta:
@@ -69,11 +71,16 @@ class UserInfoForm(forms.ModelForm):
         model = UserInfo
         fields = ('phone','user_img', 'user_desc', 'user_content')
 
-    def clean_phone(self):
-        # 对手机号进行验证
-        phone = self.cleaned_data.get('phone')
-        regex = re.compile(r'^1[^012]\d{9}$')
-        if regex.search(phone) == None:
-            raise forms.ValidationError('请输入正确的手机号码！')
-        return phone
-    
+
+class UserForm(forms.ModelForm):
+    """Form definition for Register."""
+    email = forms.CharField(label="邮箱", widget=forms.EmailInput(
+        attrs={'class':'input'}
+    ))
+
+    class Meta:
+        """Meta definition for Registerform."""
+        model = User
+        fields = ('email',)
+
+
