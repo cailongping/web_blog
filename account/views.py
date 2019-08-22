@@ -49,5 +49,3 @@ def edit_phone(request):
             user.save()
             return redirect('account:person')     
     return render(request, 'account/edit_phone.html', locals())
-
-

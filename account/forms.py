@@ -69,7 +69,7 @@ class UserInfoForm(forms.ModelForm):
         """Meta definition for UserInfoform."""
 
         model = UserInfo
-        fields = ('phone','user_img', 'user_desc', 'user_content')
+        fields = ('phone','user_img', 'user_desc', 'user_content',  'user_type')
 
 
 class UserForm(forms.ModelForm):
