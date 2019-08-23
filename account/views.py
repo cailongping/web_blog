@@ -30,31 +30,34 @@ def register(request):
 @login_required(login_url='login')
 def person_center(request):
     # 个人中心
-    user = User.objects.get(username=request.user.username)
     return render(request, 'account/person_center.html')
 
 
 @login_required(login_url='login')
-def edit_phone(request):
+def edit_user(request):
     # 修改用户信息
-    user = User.objects.get(username=request.user)
-    user_info = user.userinfo
+    user = User.objects.get(username=request.user)  # 获取当前用户
+    user_info = user.userinfo   # 一对一关系获取
     if request.method != "POST":
+        # instance 用来设置以当前信息填充表单
         form = UserForm(instance=user)
         user_info_form = UserInfoForm(instance=user_info)
     else:
+        # request.POST 用来获取表单中的文本数据  request.FILES 用来获取表单中上传的二进制文件数据
         user_info_form = UserInfoForm(request.POST, request.FILES, instance=user_info )
         form = UserForm(request.POST, instance=user)
+        # 验证两个表单数据的合法性
         if user_info_form.is_valid() and form.is_valid():
+            # 不使用表单获取字段的方式单独保存，我们直接保存模型
             user_info.save()
             user.save()
-            return redirect('account:person')     
-    return render(request, 'account/edit_phone.html', locals())
+            return redirect('account:person')     # 保存成功跳转到个人中心主页
+    return render(request, 'account/edit_user.html', locals())
 
 
 @login_required(login_url='login')
 def person_article(request):
+    # 查询当前用户已经发布的文章
     article_list = Article.objects.filter(author=request.user).order_by('pub_date')
-    # print(article_list)
     return render(request, 'account/person_article.html', locals())
 
