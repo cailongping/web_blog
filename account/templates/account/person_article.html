@@ -1,0 +1,40 @@
+{% extends 'account/person_center.html' %}
+{% load staticfiles %}
+
+{% block head %}
+    <title>{{ user.username }}已发布的文章</title>
+{% endblock head %}
+
+{% block person %}
+<div class="tabs">
+    <ul>
+        <li class="is-active"><a>已发布的文章</a></li>
+        <li><a>草稿箱</a></li>
+    </ul>
+</div>
+<div class="content">
+    <table class="table">
+        <thead>
+            <tr>
+                <th><abbr title="Position">序号</abbr></th>
+                <th>标题</th>
+                <th><abbr title="Played">发布日期</abbr></th>
+            </tr>
+            <tbody>
+                {% if article_list %}    
+                {% for article in article_list %}
+                    <tr>
+                      <th>{{ forloop.counter }}</th>
+                      <td><a href="{% url 'blog:article' article.id %}" title="{{ article.title }}">{{ article.title }}</a> 
+                      </td>
+                      <td>{{ article.pub_date|date }}</td>
+                    </tr>
+                {% endfor %}
+                {% else %}
+                    <p>还没有发布任何文章。</p>
+                {% endif %}
+            </tbody>
+    </table>
+</div>
+
+{% endblock person %}
