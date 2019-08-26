@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 # Create your views here.
-from blog.models import Article
+from blog.models import Article, Tags, Category
 from .models import UserInfo
-from .forms import RegisterForm, UserInfoForm, UserInfoRegisterForm, UserForm   # 引入forms.py中定义好的表单类
+from .forms import RegisterForm, UserInfoForm, UserInfoRegisterForm, UserForm, ArticleForm   # 引入forms.py中定义好的表单类
 
 def register(request):
     if request.method != "POST":
@@ -61,3 +61,24 @@ def person_article(request):
     article_list = Article.objects.filter(author=request.user).order_by('pub_date')
     return render(request, 'account/person_article.html', locals())
 
+
+@login_required(login_url='login')
+def person_add_article(request):
+    # 添加文章
+    tags = Tags.objects.all()
+    categorys = Category.objects.all()
+
+    if request.method != 'POST':
+        form = ArticleForm()
+    else:
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            new_article = form.save(commit=False)
+            new_article.author = request.user
+            new_article.save()
+            tags = request.POST.getlist('tags')
+            b = Article.objects.get(id=new_article.id)
+            b.tags.set(tags)
+            form.save_m2m()
+            return redirect('account:person_article')
+    return render(request, 'account/person_add_article.html', locals())

@@ -1,7 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserInfo
+from blog.models import Article
 import re
+
 
 class RegisterForm(forms.ModelForm):
     """Form definition for Register."""
@@ -84,3 +86,20 @@ class UserForm(forms.ModelForm):
         fields = ('email',)
 
 
+
+class ArticleForm(forms.ModelForm):
+    """Form definition for Article."""
+    title = forms.CharField(label="文章标题", 
+        widget=forms.TextInput(attrs={'class':'input'}))
+    desc = forms.CharField(label="文章描述", widget=forms.Textarea(
+        attrs={'class':'textarea', 'rows':4}
+    ))
+    content = forms.CharField(label="文章内容", widget=forms.Textarea(
+        attrs={'class':'textarea'}
+    ))
+
+    class Meta:
+        """Meta definition for Articleform."""
+
+        model = Article
+        exclude = ['author',]
