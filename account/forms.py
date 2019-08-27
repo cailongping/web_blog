@@ -5,6 +5,27 @@ from blog.models import Article
 import re
 
 
+class CKEditorWidget(forms.Textarea):
+    class Media:
+        css = {
+
+        }
+        js = (
+           'https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js',
+           'ckeditor/config.js',
+        )
+
+class KindEditorWidget(forms.Textarea):
+    class Media:
+        js = (
+            'kindeditor/themes/default/default.css',
+            'kindeditor/themes/simple/simple.css',
+            'kindeditor/kindeditor-all-min.js',
+            'kindeditor/zh-CN.js',
+            'kindeditor/config.js',
+            
+        )
+
 class RegisterForm(forms.ModelForm):
     """Form definition for Register."""
     username = forms.CharField(label="用户名", widget=forms.TextInput(
@@ -94,9 +115,8 @@ class ArticleForm(forms.ModelForm):
     desc = forms.CharField(label="文章描述", widget=forms.Textarea(
         attrs={'class':'textarea', 'rows':4}
     ))
-    content = forms.CharField(label="文章内容", widget=forms.Textarea(
-        attrs={'class':'textarea'}
-    ))
+    # content = forms.CharField(label="文章内容", widget=CKEditorWidget)
+    content = forms.CharField(label="文章内容", widget=KindEditorWidget)
 
     class Meta:
         """Meta definition for Articleform."""

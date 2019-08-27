@@ -54,7 +54,7 @@ class Article(models.Model):
 
     class Meta:
         """Meta definition for Article."""
-
+        ordering = ['-add_date']
         verbose_name = '博客'
         verbose_name_plural = verbose_name
 

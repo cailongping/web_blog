@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 from blog.models import Article, Tags, Category
 from .models import UserInfo
@@ -61,20 +63,21 @@ def person_article(request):
     article_list = Article.objects.filter(author=request.user).order_by('pub_date')
     return render(request, 'account/person_article.html', locals())
 
-
+@csrf_exempt
 @login_required(login_url='login')
 def person_add_article(request):
     # 添加文章
     tags = Tags.objects.all()
     categorys = Category.objects.all()
-
+    
     if request.method != 'POST':
         form = ArticleForm()
     else:
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.FILES, request.POST)
         if form.is_valid():
             new_article = form.save(commit=False)
             new_article.author = request.user
+            new_article.content = request.POST.get('content')
             new_article.save()
             tags = request.POST.getlist('tags')
             b = Article.objects.get(id=new_article.id)
@@ -82,3 +85,4 @@ def person_add_article(request):
             form.save_m2m()
             return redirect('account:person_article')
     return render(request, 'account/person_add_article.html', locals())
+

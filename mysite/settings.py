@@ -159,3 +159,4 @@ DEFAULT_FROM_EMAIL = "15336112587@163.com"
 
 # 用于调试
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

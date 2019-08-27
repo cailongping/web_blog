@@ -3,6 +3,11 @@
 
 {% block head %}
     <title>{{ user.username }}已发布的文章</title>
+    <style>
+    .ck-content{
+        height: 20em;
+    }
+    </style>
 {% endblock head %}
 
 {% block person %}
@@ -13,8 +18,9 @@
     </ul>
 </div>
 <div class="content">
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+       
        <div class="field">
             <label class="label" for="{{ form.category.id_for_label }}">{{ form.category.label }}</label>
             <div class="select">
@@ -37,7 +43,14 @@
         <div class="field">
             <label class="label" for="{{ form.conetnt.id_for_label }}">{{ form.content.label }}</label>
             <div class="control">
-               {{ form.content }}
+               <!-- {{ form.content }} -->
+               <!-- 集成ckeditor5 -->
+               <!-- <textarea name="content" style="height: 5em"  id="id_content" >
+                    <p>替换这句话为你的内容即可！</p>
+               </textarea> -->
+               <!-- 集成kindeditor -->
+               <textarea name="content" id="id_content" ></textarea>
+
             </div>
         </div>
         <div class="field">
@@ -48,6 +61,7 @@
         </div>
         <input class=" button is-primary is-pulled-right" type="submit" value="发布">
         <div class=" is-clearfix"></div>
+        {{ form.media }}
     </form>
 </div>
 
