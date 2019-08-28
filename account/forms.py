@@ -17,13 +17,14 @@ class CKEditorWidget(forms.Textarea):
 
 class KindEditorWidget(forms.Textarea):
     class Media:
+        css = {'all': (
+                'kindeditor/themes/default/default.css',
+                'kindeditor/themes/simple/simple.css',
+                )}
         js = (
-            'kindeditor/themes/default/default.css',
-            'kindeditor/themes/simple/simple.css',
             'kindeditor/kindeditor-all-min.js',
             'kindeditor/zh-CN.js',
-            'kindeditor/config.js',
-            
+            'kindeditor/config.js',         
         )
 
 class RegisterForm(forms.ModelForm):
@@ -115,7 +116,6 @@ class ArticleForm(forms.ModelForm):
     desc = forms.CharField(label="文章描述", widget=forms.Textarea(
         attrs={'class':'textarea', 'rows':4}
     ))
-    # content = forms.CharField(label="文章内容", widget=CKEditorWidget)
     content = forms.CharField(label="文章内容", widget=KindEditorWidget)
 
     class Meta:

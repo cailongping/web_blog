@@ -73,16 +73,21 @@ def person_add_article(request):
     if request.method != 'POST':
         form = ArticleForm()
     else:
+        # 创建表单，并获取表单中的数据
         form = ArticleForm(request.POST)
         if form.is_valid():
+            # 暂存数据，并返回一个类字典数据
             new_article = form.save(commit=False)
+            # 将作者信息加入到这个类字典
             new_article.author = request.user
             new_article.content = request.POST.get('content')
-            new_article.save()
-            print(new_article)
+            new_article.save()  # 保存
+            # 获取多对多的tags文章标签，getlist()方法获取多选数据
             tags = request.POST.getlist('tags')
+            # 获取到刚才创建的这篇文章
             b = Article.objects.get(id=new_article.id)
+            # 使用set()方法将tags关联到文章
             b.tags.set(tags)
-            form.save_m2m()
+            form.save_m2m()  # 保存多对多数据
             return redirect('account:person_article')
     return render(request, 'account/person_add_article.html', locals())

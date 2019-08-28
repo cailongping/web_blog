@@ -45,5 +45,7 @@ def image_upload(files, dir_name):
     file_name = str(uuid.uuid1()) + "." + file_suffix
     path_file = os.path.join(path, file_name)
     file_url = settings.MEDIA_URL + relative_path_file + file_name
-    open(path_file, 'wb').write(files.file.read())
+    with open(path_file, 'wb') as object_file:
+        for item in files.chunks():
+            object_file.write(item)
     return {"error": 0, "url": file_url}
