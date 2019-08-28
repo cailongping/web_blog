@@ -9,12 +9,13 @@ import datetime as dt
 @csrf_exempt
 def upload_image(request, dir_name):
     result = {"error": 1, "message": "上传出错"}
-    files = request.FILES.get("localUrl", None)
+    files = request.FILES.get("imgFile", None)
     if files:
         result = image_upload(files, dir_name)
     return HttpResponse(json.dumps(result), content_type="application/json")
+    
 # 目录创建
-
+@csrf_exempt
 def upload_generation_dir(dir_name):
     today = dt.datetime.today()
     dir_name = dir_name + '/%d/%d/' % (today.year, today.month)

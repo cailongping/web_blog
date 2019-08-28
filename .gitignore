@@ -3,10 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 migrations/
+media/kindeditor/
 # C extensions
 *.pyc
 *.so
-
 # Distribution / packaging
 .Python
 env/
