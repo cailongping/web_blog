@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load staticfiles %}
+{% load static %}
 
 <html lang="cn">
 <head>
@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href=" {% static 'blog/css/bulma.css' %}">
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script defer src="{% static 'account/js/all.min.js' %}"></script>
     {% block head %}
     <title>个人中心</title>
     {% endblock head %}
