@@ -17,7 +17,7 @@
   <header class="container menu-header">
     <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <h1 class="navbar-item is-size-3 has-text-black">轻编程</h1>
+            <h1 class="navbar-item is-size-3">轻编程</h1>
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -25,15 +25,15 @@
           </a>
         </div>
       
-        <div id="navbarBasicExample" class="navbar-menu">
+        <div id="navbarBasicExample" class="navbar-menu has-text-black">
           {% get_category_list as category_list %}
     {% if category_list %}
         <div class="navbar-start">
-            <a class="navbar-item active has-text-black has-text-weight-bold" href="{% url 'blog:index' %}">
+            <a class="navbar-item {% if request.path == '/' %}is-active{% endif %}" href="{% url 'blog:index' %}">
                 首页
             </a>
         {% for category in category_list %}
-            <a class="navbar-item has-text-black-bis" href="{% url 'blog:category' category.slug %}">
+            <a class="navbar-item {% ifequal slug category.slug %}is-active {% endifequal %}" href="{% url 'blog:category' category.slug %}">
                 {{ category.name }}
             </a>
         {% endfor %}    
@@ -43,7 +43,7 @@
         <p>还没有添加任何分类</p>
     {% endif %} 
     
-        <div class="navbar-end">
+       <div class="navbar-end">
           <div class="navbar-item">
             {% if user.is_authenticated %}
             <div class="buttons">

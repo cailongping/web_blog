@@ -25,8 +25,8 @@ def article(request, article_id):
     content_count = len(str(article.content))  # 统计文章字数
 
     # 获取上下篇
-    per_article = Article.objects.filter(add_date__lt=article.add_date).last()
-    next_article = Article.objects.filter(add_date__gt=article.add_date).first()
+    per_article = Article.objects.filter(id__lt=article.id).first()
+    next_article = Article.objects.filter(id__gt=article.id).order_by('id').first()
    
     # 判断是否为POST请求，如果不是
     if request.method != "POST":

@@ -133,7 +133,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # 加入下面的配置
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # 缓存的文档地址

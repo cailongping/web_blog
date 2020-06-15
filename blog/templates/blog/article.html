@@ -27,11 +27,11 @@
       <div class=" has-text-justified">
         {{ article.content|safe }}
       </div>
-      <!-- <div class="has-text-right">
+      <div class="has-text-right">
           <p class=" is-size-7 has-text-grey-light">
             本篇文章最后修改于：{{ article.pub_date|date }}
           </p>
-      </div> -->
+      </div>
     </div> 
 
 <!-- 文章标签 -->
@@ -50,10 +50,14 @@
 <!-- 文章标签 end-->
 </div>
 
+
+
+  
 <!-- 上下篇 -->
 <div class="box is-shadowless is-radiusless">
   <div class="columns">
     <div class="column is-6">
+      
       {% if per_article %}
         <span class=" is-size-7">上一篇：</span>
         <a href="{% url 'blog:article' per_article.id %}">{{ per_article }}</a> 
